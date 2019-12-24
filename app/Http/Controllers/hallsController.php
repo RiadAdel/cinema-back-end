@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\hall;
 use Illuminate\Http\Request;
 
 class hallsController extends Controller
@@ -13,7 +14,7 @@ class hallsController extends Controller
      */
     public function index()
     {
-        //
+        return response()->json(hall::get(),200);
     }
 
     /**

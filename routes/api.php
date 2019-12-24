@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\moviesController;
 use Illuminate\Http\Request;
 //use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route;
@@ -17,8 +18,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('movies', 'moviesController@index');
-Route::post('add-movie', 'moviesController@store');
 Route::get('genres', 'genresController@index');
+Route::get('halls', 'hallsController@index');
+Route::get('screening', 'moviesController@screening');
+Route::get('tickets', 'ticketsController@screeningTickets');
+Route::post('add-ticket', 'ticketsController@store');
+Route::post('add-screening', 'moviesController@addScreening');
+Route::post('add-movie', 'moviesController@store');
 Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
 Route::group(['middleware' => 'auth:api'], function () {

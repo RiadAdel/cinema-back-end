@@ -17,6 +17,7 @@ class genresController extends Controller
         return response()->json(genre::get(),200);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *

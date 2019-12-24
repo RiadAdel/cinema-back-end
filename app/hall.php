@@ -12,7 +12,7 @@ class hall extends Model
         return $this->hasMany('App\seat');
     }
 
-    public function ticket(){
-        return $this->belongsToMany('App\ticket','');
+    public function movie(){
+        return $this->belongsToMany('App\movie','screening','hall','movie_id')->withPivot('screening_time','screening_day','id')->withTimestamps();
     }
 }
