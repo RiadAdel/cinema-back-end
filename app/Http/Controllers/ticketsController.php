@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\screening;
+use App\seat;
 use App\ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -10,7 +12,9 @@ class ticketsController extends Controller
 {
     
     public function screeningTickets(Request $request){
-        return response()->json(ticket::where('screening_id',$request->screening_id)->with('seat')->get(),200);
+        $hall = screening::where('id',$request->screening_id)->first(['id']);
+        $seats = seat::where('hall_id',$hall["id"])->first(['id']);
+        return response()->json(["seat_id"=>$seats["id"],"tickets"=>ticket::where('screening_id',$request->screening_id)->with('seat')->get()],200);
     }
     /**
      * Display a listing of the resource.
@@ -42,7 +46,7 @@ class ticketsController extends Controller
     {
         $validator = Validator::make($request->all(),[
             'user_username'=>'required|exists:users,username',
-            'screening_id'=>'required|exists:halls,id',
+            'screening_id'=>'required|exists:screening,id',
             'seat_id'=>'required|exists:seats,id|unique_with:tickets,screening_id',
         ]);
         if ($validator->fails()) {
